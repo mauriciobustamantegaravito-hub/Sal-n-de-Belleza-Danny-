@@ -1,8 +1,8 @@
 # Salón de Belleza Danny
 
-## MVP de agenda PWA (trabajo local; aún no publicado)
+## MVP de agenda PWA
 
-El primer corte incluye un chat guiado sin IA, selector de servicio/fecha/hora, solicitud de cita y panel privado para revisar, confirmar o cancelar. Conserva la web pública de Danny y está configurado para correr con Next.js estándar para preparar un despliegue posterior en Vercel. No se ha desplegado.
+El primer corte incluye un chat guiado sin IA, selector de servicio/fecha/hora, solicitud de cita y panel privado para revisar, confirmar o cancelar. Conserva la web pública de Danny y está configurado para correr en Vercel con Next.js. El proyecto de Vercel ya está conectado al repositorio, con `main` como rama de producción; el primer despliegue todavía está pendiente.
 
 ### Probar la interfaz
 
@@ -29,9 +29,9 @@ Abre `http://localhost:3000`. Sin variables de Supabase, el chat funciona en mod
 
 La migración inicia los siete días con atención de 8:00 a. m. a 9:00 p. m. y servicios de una hora, como valores provisionales conversados. Conviene revisar días abiertos y duraciones con Dani antes de aceptar reservas reales. La base de datos evita dos citas a la vez; las reservas nuevas quedan como `solicitada`.
 
-### PWA y despliegue futuro
+### PWA y despliegue en Vercel
 
-La app incluye manifiesto y un service worker que guarda imágenes y archivos estáticos; la agenda requiere internet. El panel depende de Supabase Auth y Row Level Security. Para el despliegue futuro en Vercel, se importará el repositorio y se definirán las mismas dos variables de entorno. No se incluyen credenciales.
+La app incluye manifiesto y un service worker que guarda imágenes y archivos estáticos; la agenda requiere internet. El panel depende de Supabase Auth y Row Level Security. Vercel despliega automáticamente los commits nuevos en `main`. Sin `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY`, el sitio funciona en modo demostración y las citas no se guardan. Añade esas dos variables cuando conectes Supabase. No se incluyen credenciales.
 
 ---
 
