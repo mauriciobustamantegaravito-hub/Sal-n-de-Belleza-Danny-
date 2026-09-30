@@ -1,0 +1,11 @@
+{
+  "name": "Salón de Belleza Danny",
+  "short_name": "Salón Danny",
+  "description": "Agenda y gestiona tus citas con Salón de Belleza Danny.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080608",
+  "theme_color": "#160b13",
+  "lang": "es-CO",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
