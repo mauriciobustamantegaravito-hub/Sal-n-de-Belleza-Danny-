@@ -26,4 +26,4 @@ export const services = [
  {slug:'limpieza-facial',name:'Limpieza facial',category:'CUIDADO FACIAL',line:'Un espacio para cuidarte.',intro:'Pregunta por la limpieza facial y los detalles del servicio directamente con Danny.',image:'beauty',duration:60,details:standardDetails},
  {slug:'depilacion',name:'Depilación',category:'CUIDADO PERSONAL',line:'Atención en los detalles.',intro:'Diseño y depilación de cejas, además de depilación con cera. Consulta las opciones disponibles.',image:'beauty',duration:60,details:standardDetails},
 ] as const;
-export const contact = { phoneDisplay:'350 530 9936', whatsapp:'573505309936', address:'Calle 76 Sur n.º 16P-43', city:'Bogotá, Colombia', mapsQuery:'Calle 76 Sur 16P-43, Bogotá, Colombia' };
+export const contact = { phoneDisplay:'350 530 9936', whatsapp:'573505309936', address:'Calle 76 Sur número 16P-43', city:'Bogotá, Colombia', mapsQuery:'Calle 76 Sur número 16P-43, Bogotá, Colombia' };
