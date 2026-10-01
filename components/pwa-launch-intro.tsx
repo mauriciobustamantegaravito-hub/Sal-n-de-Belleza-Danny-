@@ -5,13 +5,16 @@ import {ArrowRight,Sparkles} from 'lucide-react';
 export function PwaLaunchIntro(){
  const [visible,setVisible]=useState(false);
  useEffect(()=>{
+  const root=document.documentElement;
   const standalone=matchMedia('(display-mode: standalone)').matches||('standalone' in navigator&&Boolean((navigator as Navigator&{standalone?:boolean}).standalone));
-  if(!standalone)return;
-  const close=()=>{setVisible(false);document.documentElement.classList.remove('pwa-intro-active')};
+  if(!standalone&&!root.classList.contains('pwa-booting'))return;
+  const bootWindow=window as Window&{__pwaLaunchTimeout?:number};
+  if(bootWindow.__pwaLaunchTimeout)window.clearTimeout(bootWindow.__pwaLaunchTimeout);
+  const close=()=>{setVisible(false);root.classList.remove('pwa-intro-active','pwa-booting','pwa-intro-ready')};
   setVisible(true);
-  document.documentElement.classList.add('pwa-intro-active');
+  root.classList.add('pwa-intro-active','pwa-intro-ready');
   const timer=window.setTimeout(close,3400);
-  return()=>{window.clearTimeout(timer);document.documentElement.classList.remove('pwa-intro-active')};
+  return()=>{window.clearTimeout(timer);root.classList.remove('pwa-intro-active','pwa-booting','pwa-intro-ready')};
  },[]);
  if(!visible)return null;
  return <div className="pwa-intro" role="status" aria-live="polite">
@@ -34,6 +37,6 @@ export function PwaLaunchIntro(){
    <div className="intro-subtitle">SALÓN DE BELLEZA</div>
    <p className="intro-tagline">Tu esencia. <em>Tu estilo.</em> Tu brillo.</p>
   </div>
-  <div className="intro-bottom"><span className="intro-progress"><i/></span><button onClick={()=>{setVisible(false);document.documentElement.classList.remove('pwa-intro-active')}}>Entrar al salón <ArrowRight size={15}/></button></div>
+  <div className="intro-bottom"><span className="intro-progress"><i/></span><button onClick={()=>{setVisible(false);document.documentElement.classList.remove('pwa-intro-active','pwa-booting','pwa-intro-ready')}}>Entrar al salón <ArrowRight size={15}/></button></div>
  </div>
 }

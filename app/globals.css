@@ -42,6 +42,10 @@
 .share-site:hover{color:#ff9bcb}
 
 /* Entrada de bienvenida de la app instalada */
+html.pwa-booting body:before{content:"";position:fixed;inset:0;z-index:2147483646;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,#4b1748 0%,#1a0b1c 42%,#080608 82%);animation:boot-screen-glow 1.5s ease-in-out infinite alternate}
+html.pwa-booting body:after{content:"✦  DANNY  ✦\A SALÓN DE BELLEZA";white-space:pre;position:fixed;inset:0;z-index:2147483647;display:grid;place-content:center;text-align:center;color:#fff2fb;font:italic clamp(38px,10vw,64px)/1.5 Georgia,serif;letter-spacing:.12em;text-shadow:0 0 15px #ffb6ed,0 0 40px #ec65d6;pointer-events:none;animation:boot-screen-glow 1.5s ease-in-out infinite alternate}
+html.pwa-booting.pwa-intro-ready body:before,html.pwa-booting.pwa-intro-ready body:after{opacity:0;transition:opacity .3s ease}
+@keyframes boot-screen-glow{from{filter:brightness(.82)}to{filter:brightness(1.22)}}
 .pwa-intro{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;color:#fff7ff;background:radial-gradient(ellipse at 50% 44%,#4b1748 0%,#1a0b1c 38%,#080608 80%);animation:intro-screen-in .5s ease-out both;isolation:isolate;touch-action:none}
 .pwa-intro:before,.pwa-intro:after{content:"";position:absolute;inset:-30%;pointer-events:none}
 .pwa-intro:before{background:conic-gradient(from 0deg at 50% 50%,transparent 0deg,#fa72d522 35deg,transparent 80deg,#ae69ff20 155deg,transparent 210deg,#fff2 270deg,transparent 320deg);filter:blur(35px);animation:intro-aura-rotate 16s linear infinite}
