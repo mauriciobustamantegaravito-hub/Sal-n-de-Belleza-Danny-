@@ -46,7 +46,7 @@ export function InstallPrompt(){
  return <aside className="install-prompt" aria-label="Instala la aplicación Salón Danny">
   <button className="install-close" onClick={dismiss} aria-label="Cerrar aviso">×</button>
   <span className="install-mark"><Download size={19}/></span>
-  <div className="install-copy"><strong>Instala la app de Danny</strong><p>Ten el salón a mano y agenda más fácil desde tu celular.</p>
+  <div className="install-copy"><strong>Instala la app de Danny</strong><p>{platform==='desktop'?'Instálala en tu computador y vuelve a Danny cuando quieras.':'Ten el salón a mano y agenda más fácil desde tu celular.'}</p>
    {installEvent?<button className="install-action" onClick={install}>Instalar app <Download size={15}/></button>:
    <button className="install-action" onClick={()=>setInstructions(!instructions)} aria-expanded={instructions}>{instructions?'Cerrar instrucciones':'Cómo instalar'} <ChevronDown size={15}/></button>}
    {instructions&&(platform==='ios'?<ol className="install-steps"><li><Share size={14}/> Toca <b>Compartir</b> en Safari.</li><li><Check size={14}/> Elige <b>Añadir a pantalla de inicio</b>.</li></ol>:platform==='android'?<ol className="install-steps"><li>Abre el menú <b>⋮</b> del navegador.</li><li>Elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.</li></ol>:<ol className="install-steps"><li>Abre el menú de tu navegador.</li><li>Elige <b>Instalar página como aplicación</b>.</li></ol>)}
