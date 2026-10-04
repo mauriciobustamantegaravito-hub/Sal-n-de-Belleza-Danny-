@@ -7,7 +7,7 @@ interface InstallPromptEvent extends Event {
  prompt:()=>Promise<void>;
  userChoice:Promise<{outcome:InstallChoice;platform:string}>;
 }
-const DISMISSED_KEY='danny-install-prompt-dismissed-until';
+const DISMISSED_KEY='danny-install-prompt-dismissed-until-v2';
 const SEVEN_DAYS=7*24*60*60*1000;
 
 export function InstallPrompt(){
@@ -24,14 +24,12 @@ export function InstallPrompt(){
   const dismissed=Number(localStorage.getItem(DISMISSED_KEY)||0);
   if(dismissed>Date.now())return;
   setIos(isiOS);
-  let timer:ReturnType<typeof setTimeout>|undefined;
-  const reveal=()=>{if(!timer)timer=setTimeout(()=>setVisible(true),9000)};
-  if(isiOS)reveal();
-  const onBeforeInstall=(event:Event)=>{event.preventDefault();setInstallEvent(event as InstallPromptEvent);reveal()};
+  const timer=setTimeout(()=>setVisible(true),5000);
+  const onBeforeInstall=(event:Event)=>{event.preventDefault();setInstallEvent(event as InstallPromptEvent)};
   const onInstalled=()=>{setVisible(false);setInstallEvent(null)};
   window.addEventListener('beforeinstallprompt',onBeforeInstall);
   window.addEventListener('appinstalled',onInstalled);
-  return()=>{if(timer)clearTimeout(timer);window.removeEventListener('beforeinstallprompt',onBeforeInstall);window.removeEventListener('appinstalled',onInstalled)};
+  return()=>{clearTimeout(timer);window.removeEventListener('beforeinstallprompt',onBeforeInstall);window.removeEventListener('appinstalled',onInstalled)};
  },[]);
 
  function dismiss(){localStorage.setItem(DISMISSED_KEY,String(Date.now()+SEVEN_DAYS));setVisible(false)}
@@ -49,9 +47,9 @@ export function InstallPrompt(){
   <button className="install-close" onClick={dismiss} aria-label="Cerrar aviso">×</button>
   <span className="install-mark"><Download size={19}/></span>
   <div className="install-copy"><strong>Instala la app de Danny</strong><p>Ten el salón a mano y agenda más fácil desde tu celular.</p>
-   {ios? <button className="install-action" onClick={()=>setInstructions(!instructions)} aria-expanded={instructions}>{instructions?'Listo':'Cómo instalar'} <ChevronDown size={15}/></button>:
-   <button className="install-action" onClick={install}>Instalar aplicación <Download size={15}/></button>}
-   {ios&&instructions&&<ol className="install-steps"><li><Share size={14}/> Toca <b>Compartir</b> en Safari.</li><li><Check size={14}/> Elige <b>Añadir a pantalla de inicio</b>.</li></ol>}
+   {installEvent?<button className="install-action" onClick={install}>Instalar app <Download size={15}/></button>:
+   <button className="install-action" onClick={()=>setInstructions(!instructions)} aria-expanded={instructions}>{instructions?'Cerrar instrucciones':'Cómo instalar'} <ChevronDown size={15}/></button>}
+   {instructions&&(ios?<ol className="install-steps"><li><Share size={14}/> Toca <b>Compartir</b> en Safari.</li><li><Check size={14}/> Elige <b>Añadir a pantalla de inicio</b>.</li></ol>:<ol className="install-steps"><li>Abre el menú <b>⋮</b> del navegador.</li><li>Elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.</li></ol>)}
   </div>
  </aside>
 }
